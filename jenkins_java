@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    tools {
+        jdk 'jdk21'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/sanju123-s/Jin'
+            }
+        }
+
+
+
+
+
+        stage('Compile') {
+            steps {
+                echo 'Compiling Java program...'
+                sh 'javac Helloworld.java'
+            }
+        }
+
+        stage('Run') {
+            steps {
+                echo 'Running java program...'
+                sh 'java Helloworld'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build and execution successful!'
+        }
+        failure {
+            echo 'Build failed'
+        }
+    }
+}
